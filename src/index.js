@@ -2,9 +2,8 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 
-import routes from "./routes";
 import sequelize from "./models";
-
+import { populateDB } from "./helpers";
 const app = express();
 
 app.use(cors());
@@ -16,19 +15,12 @@ app.use((req, _, next) => {
   next();
 });
 
-app.use("/movies", routes.movie);
-
-// const createMovies = async () => {
-//   await sequelize.models.Movie.create({
-//     title: "Titanic",
-//     text: "dlhy text titanic",
-//   });
-// };
-
 // force -> reset database on start
-sequelize.sync().then(() => {
-  app.listen(process.env.PORT, () => {
-    // createMovies();
-    console.log(`Example app listening on port ${process.env.PORT}!`);
+sequelize.sync({ force: true }).then(() => {
+  const port = process.env.PORT ? process.env.PORT : 3000;
+  app.listen(port, () => {
+    populateDB().then(() => {
+      console.log(`Example app listening on port ${port}!`);
+    });
   });
 });

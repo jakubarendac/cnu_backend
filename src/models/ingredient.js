@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 
-const movie = (sequelize) => {
-  const Movie = sequelize.define("Movie", {
+const ingredient = (sequelize) => {
+  const ingredient = sequelize.define("ingredient", {
     title: {
       type: DataTypes.STRING(100),
       unique: true,
@@ -10,13 +10,12 @@ const movie = (sequelize) => {
         notEmpty: true,
       },
     },
-    // TODO : could be shorthand
-    text: {
+    unit: {
       type: DataTypes.STRING,
     },
   });
 
-  return Movie;
+  return ingredient;
 };
 
-export default movie;
+export default ingredient;

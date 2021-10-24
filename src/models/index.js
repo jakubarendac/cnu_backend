@@ -1,26 +1,25 @@
 import Sequelize from "sequelize";
 
-import movie from "./movie";
+import recipe from "./recipe";
+import ingredient from "./ingredient";
 
-// TODO : maybe change to postgres
-// const sequelize = new Sequelize(
-//   process.env.DATABASE,
-//   process.env.DATABASE_USER,
-//   process.env.DATABASE_PASSWORD,
-//   {
-//     dialect: 'postgres',
-//   },
-// );
+function applyRelations(sequelize) {
+  const { ingredient, recipe } = sequelize.models;
+
+  ingredient.belongsToMany(recipe, { through: "recipeIngredients" });
+  recipe.belongsToMany(ingredient, { through: "recipeIngredients" });
+}
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: process.env.DATABASE_PATH,
+  logging: false,
 });
 
-const models = [movie];
+const models = [recipe, ingredient];
 
 models.forEach((model) => model(sequelize));
 
-// export { sequelize };
+applyRelations(sequelize);
 
 export default sequelize;
