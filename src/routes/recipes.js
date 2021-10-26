@@ -1,5 +1,5 @@
 import express from 'express'
-const { param, validationResult } = require('express-validator');
+import { param, validationResult } from 'express-validator'
 
 const router = express.Router()
 
