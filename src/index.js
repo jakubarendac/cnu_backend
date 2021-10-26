@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import express from "express";
+import pino from "pino-http"
 
 import sequelize from "./models";
 import { populateDB } from "./helpers";
@@ -8,6 +9,7 @@ import routes from "./routes"
 const app = express();
 
 app.use(cors());
+app.use(pino())
 
 app.use((req, _, next) => {
   req.context = {
