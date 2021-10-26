@@ -18,8 +18,7 @@ router.get('/:recipeTitle', param('recipeTitle').isLength({ max: 25 }).isLength(
     try {
         const result = validationResult(req)
         if (!result.isEmpty()) {
-            res.status(400).send('The request must be between 3 and 25 characters long')
-            return
+            return res.status(400).send('The request must be between 3 and 25 characters long')
         }
         const allRecipes = await req.context.models.recipe.findAll({
             where: { title: req.params.recipeTitle },
