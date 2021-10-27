@@ -5,7 +5,6 @@ import pino from "pino-http"
 
 import sequelize from "./models";
 import { populateDB } from "./helpers";
-import routes from "./routes"
 const app = express();
 
 app.use(cors());
@@ -18,7 +17,6 @@ app.use((req, _, next) => {
   next();
 });
 
-app.use("/recipes", routes.recipes)
 
 // force -> reset database on start
 sequelize.sync({ force: true }).then(() => {
