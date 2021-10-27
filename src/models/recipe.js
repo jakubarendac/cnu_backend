@@ -1,4 +1,6 @@
-import { DataTypes } from "sequelize";
+import Sequelize from "sequelize";
+
+const { DataTypes } = Sequelize;
 
 const recipe = (sequelize) => {
   const recipe = sequelize.define("recipe", {
