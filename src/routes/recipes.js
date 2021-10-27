@@ -1,19 +1,10 @@
 import express from 'express'
 import { param, validationResult } from 'express-validator';
+import services from "../services"
+
 
 const router = express.Router()
-
-router.get('/', async (req, res) => {
-    try {
-        const allRecipes = await req.context.models.recipe.findAll({
-            include: [{ model: req.context.models.ingredient }]
-        })
-        return res.send(allRecipes)
-    } catch (err) {
-        req.log.error('Something failed')
-        res.status(400).send('something failed... ')
-    }
-})
+router.get('/', services.getRecipesByTitle)
 
 router.get('/:recipeTitle', param('recipeTitle').isLength({ max: 25 }).isLength({ min: 3 }), async (req, res) => {
     try {
@@ -28,7 +19,7 @@ router.get('/:recipeTitle', param('recipeTitle').isLength({ max: 25 }).isLength(
         })
         return res.send(allRecipes)
     } catch (err) {
-        req.log.error('the request failed...')
+        req.log.error('the request failed',)
         res.status(400).send('something failed... ')
     }
 })
