@@ -12,7 +12,7 @@ function applyRelations(sequelize) {
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: process.env.DATABASE_PATH,
+  storage: 'db.sqlite',
   logging: false,
 });
 
