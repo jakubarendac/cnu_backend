@@ -13,7 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(pino())
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
 
